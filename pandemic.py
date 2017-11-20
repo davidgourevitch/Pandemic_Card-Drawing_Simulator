@@ -14,10 +14,15 @@ while ((eventsDecision != "y") and (eventsDecision != "Y") and (eventsDecision !
 	eventsDecision = input("Would you like to play with Emergency Events? Y/N\n")
 	if ((eventsDecision != "y") and (eventsDecision != "Y") and (eventsDecision != "n") and (eventsDecision != "N")):
 		print("I did not understand that...")
-
+epidemDecision = "a"
+while ((epidemDecision != "y") and (epidemDecision != "Y") and (epidemDecision != "n") and (epidemDecision != "N")):
+	epidemDecision = input("Would you like to play with the Virulent Strain? Y/N\n")
+	if ((epidemDecision != "y") and (epidemDecision != "Y") and (epidemDecision != "n") and (epidemDecision != "N")):
+		print("I did not understand that...")
 
 #Establish all the sizes
 eventsDecision = (eventsDecision == "Y" or eventsDecision == "y")
+epidemDecision = (epidemDecision == "Y" or epidemDecision == "y")
 numCities = len(deck)
 numEmergencies = 6
 numEpidemics = numEmergencies 
@@ -75,12 +80,18 @@ if (eventsDecision):
 sizeOfDeck = len(deck)
 numAlreadyUsed = (numEmergencies-sizeOfDeck%numEmergencies)*(sizeOfDeck//numEmergencies+1) #iterations * values used in each iteration
 for i in range(sizeOfDeck%numEpidemics):
-	card = "Epidemic: " + epidemics.pop(random.randint(0, len(epidemics)-1))
+	if (epidemDecision):
+		card = "Epidemic: " + epidemics.pop(random.randint(0, len(epidemics)-1))
+	else:
+		card = "EPIDEMIC!"
 	index = random.randint((i*((sizeOfDeck//numEpidemics) + i)), ((i + 1)*(sizeOfDeck//numEpidemics) + i))
 	deck.insert(index, card)
 
 for i in range(numEpidemics - sizeOfDeck%numEpidemics):
-	card = "Epidemic: " + epidemics.pop(random.randint(0, len(epidemics)-1))
+	if (epidemDecision):
+		card = "Epidemic: " + epidemics.pop(random.randint(0, len(epidemics)-1))
+	else:
+		card = "EPIDEMIC!"
 	index = random.randint((numAlreadyUsed + i*(sizeOfDeck//numEpidemics)), (numAlreadyUsed + (i+1)*(sizeOfDeck//numEpidemics)))
 	deck.insert(index, card)
 
